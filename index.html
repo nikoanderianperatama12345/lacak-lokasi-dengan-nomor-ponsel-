@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lacak lokasi dengan nomor ponsel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 420px;
+      background: #1c1c1c;
+      color: #fff;
+      margin: 60px auto;
+      border-radius: 16px;
+      padding: 25px 20px;
+      box-shadow: 0 0 15px #00e5ff;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #00e5ff;
+    }
+    .creator {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .creator-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00e5ff;
+      box-shadow: 0 0 10px #00e5ff;
+    }
+    .creator-name {
+      font-size: 14px;
+      color: #00e5ff;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 12px;
+      border: 1px solid #555;
+      font-size: 16px;
+      background: #111;
+      color: #fff;
+    }
+    button {
+      padding: 12px;
+      width: 100%;
+      border: none;
+      background: #00e5ff;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00bcd4;
+    }
+    .info {
+      text-align: left;
+      margin-top: 20px;
+    }
+    .info p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+    .locked {
+      color: red;
+      font-weight: bold;
+    }
+    .unlocked {
+      color: #00ff00;
+      font-weight: bold;
+    }
+    .pesan {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+      background: #212121;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px dashed #00e5ff;
+    }
+    .qr-img {
+      display: block;
+      width: 180px;
+      margin: 20px auto 10px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px #00e5ff;
+    }
+    .download-link {
+      color: #00e5ff;
+      text-align: center;
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .gps-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 20px auto;
+      box-shadow: 0 0 12px #00e5ff;
+    }
+    .icon {
+      font-size: 18px;
+      margin-right: 5px;
+      color: #00e5ff;
+      cursor: pointer;
+    }
+    .penjelasan {
+      background: #111;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #00e5ff;
+      border: 1px solid #00e5ff;
+    }
+    #loading {
+      display: none;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #00e5ff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Lacak lokasi dengan nomor ponsel</h2>
+  <div class="creator">
+    <img src="niko.png" alt="Pembuat" class="creator-img">
+    <p class="creator-name">cyber NIKO:CJ  development</p>
+  </div>
+
+  <input type="text" id="nomor" placeholder="+62xxxxxxxxxxx">
+  <button onclick="lacak()">Melacak Sekarang</button>
+
+  <div id="loading">Melacak lokasi...</div>
+
+  <div class="info" id="hasil" style="display:none;">
+    <p><span class="icon">📍</span><strong>Negara:</strong> Indonesia</p>
+    <p><span class="icon">⏰</span><strong>Zona Waktu:</strong> GMT+7</p>
+    <p ondblclick="bukaLokasi()">
+      <span class="icon" id="lokasiIcon">🔒</span>
+      <strong>Lokasi:</strong> <span id="lokasiText" class="locked">[TERKUNCI]</span>
+    </p>
+    <p ondblclick="bukaLokasi()">
+      <span class="icon" id="kotaIcon">🔒</span>
+      <strong>Kota:</strong> <span id="kotaText" class="locked">[TERKUNCI]</span>
+    </p>
+    <div class="pesan">
+      Untuk mengetahui lokasi secara real-time, silakan lakukan pembayaran biaya defwlofmen sebesar <b>Rp 10.000</b> melalui QR DANA di bawah ini:
+    </div>
+    <img class="qr-img" src="qr.jpg" alt="QR DANA">
+    <a href="qr.jpg" download="qr2.jpg" class="download-link">Download QR</a>
+
+    <div class="pesan">
+      Setelah pembayaran selesai, sistem akan secara otomatis membuka lokasi & kota target.
+    </div>
+    <img class="gps-img" src="bumi2.jpg" alt="Bumi">
+    <div class="penjelasan">
+      Sistem ini menggunakan pemindaian sinyal BTS dan data GPS terakhir untuk menentukan lokasi pengguna dengan tingkat akurasi tinggi. Teknologi kami juga didukung kecerdasan buatan untuk mempercepat identifikasi area dalam hitungan detik.
+    </div>
+  </div>
+</div>
+
+<script>
+  const lokasiList = ["Jakarta Selatan", "Bekasi", "Bandung", "Depok", "Cibubur", "Semarang", "Medan", "Makassar"];
+  const kotaList = ["DKI Jakarta", "Jawa Barat", "Jawa Tengah", "Sumatera Utara", "Sulawesi Selatan", "Banten"];
+
+  function lacak() {
+    const nomor = document.getElementById("nomor").value.trim();
+    if (nomor === "") {
+      alert("Masukkan nomor telepon terlebih dahulu.");
+      return;
+    }
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("hasil").style.display = "none";
+
+    setTimeout(() => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("hasil").style.display = "block";
+    }, 3000);
+  }
+
+  function bukaLokasi() {
+    const i = Math.floor(Math.random() * lokasiList.length);
+    const j = Math.floor(Math.random() * kotaList.length);
+
+    document.getElementById("lokasiIcon").innerText = "✅";
+    document.getElementById("lokasiText").innerText = lokasiList[i];
+    document.getElementById("lokasiText").className = "unlocked";
+
+    document.getElementById("kotaIcon").innerText = "✅";
+    document.getElementById("kotaText").innerText = kotaList[j];
+    document.getElementById("kotaText").className = "unlocked";
+  }
+</script>
+
+</body>
+</html>
